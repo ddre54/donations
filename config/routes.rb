@@ -1,9 +1,25 @@
 Donations::Application.routes.draw do
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
+  root 'sessions#new'
+
+  resources :sessions, only: [:new, :create, :destroy]
+  controller :sessions do
+    get 'signin' => :new
+    post 'signin' => :create
+    delete 'signout' => :destroy
+  end
+
+  match '/signup', to: 'users#new', via: 'get'
+  resources :users
+
+  # match '/signup',  to: 'users#new',            via: 'get'
+  # match '/signin',  to: 'sessions#new',         via: 'get'
+  # match '/signout', to: 'sessions#destroy',     via: 'delete'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

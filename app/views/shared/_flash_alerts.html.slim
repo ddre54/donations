@@ -1,0 +1,11 @@
+- if not @messages_rendered
+  - if flash[:error]
+    div.flash-error
+      p.error =h flash[:error]
+  - if flash[:notice]
+    div.flash-notice
+      p.notice =h flash[:notice]
+  - if flash[:alert]
+    div.flash-alert
+      p.alert =h flash[:alert]
+- @messages_rendered = true
