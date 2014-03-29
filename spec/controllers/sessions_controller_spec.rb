@@ -2,13 +2,6 @@ require 'spec_helper'
 
 describe SessionsController do
 
-  let(:valid_attributes) { {
-    "name" => "Jhon Doe",
-    "email" => "user@example.com",
-    "password" => "examplepass",
-    "password_confirmation" => "examplepass"
-  } }
-
   let(:valid_params) { {
     "email" => "user@example.com",
     "password" => "examplepass"
@@ -17,7 +10,7 @@ describe SessionsController do
   let(:valid_session) { {} }
 
   before do
-    @user = User.create! valid_attributes
+    @user = create(:user)
   end
 
   describe "POST create" do
@@ -37,7 +30,7 @@ describe SessionsController do
     describe "with invalid params" do
       it "display flash alert" do
         post :create, {:session => { "email" => "invalid value" }}, valid_session
-        flash[:alert].should eq("Signin failed")
+        flash[:error].should eq("Signin failed")
       end
 
       it "re-renders the 'new' template" do

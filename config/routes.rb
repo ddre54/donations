@@ -1,5 +1,7 @@
 Donations::Application.routes.draw do
 
+  get "donations/index"
+  get "donations/new"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -15,7 +17,15 @@ Donations::Application.routes.draw do
   end
 
   match '/signup', to: 'users#new', via: 'get'
-  resources :users
+  resources :users do
+    resources :donations
+  end
+
+  # do
+  #   resources :physical_item
+  #   resources :voucher
+  #   resources :experience
+  # end
 
   # match '/signup',  to: 'users#new',            via: 'get'
   # match '/signin',  to: 'sessions#new',         via: 'get'

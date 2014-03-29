@@ -11,15 +11,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140327220531) do
+ActiveRecord::Schema.define(version: 20140328174128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "donations", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "user_id"
+    t.integer  "donable_id"
+    t.string   "donable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "donations", ["donable_id", "donable_type"], name: "index_donations_on_donable_id_and_donable_type", using: :btree
+
+  create_table "experiences", force: true do |t|
+    t.string   "primary_contact_name"
+    t.decimal  "latitude"
+    t.decimal  "longitude"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "physical_items", force: true do |t|
+    t.decimal  "height"
+    t.decimal  "weight"
+    t.decimal  "width"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vouchers", force: true do |t|
+    t.date     "expiration_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
