@@ -1,24 +1,27 @@
-h1 Your donations
+h1 #{@user.name}'s donations
 
 table
   thead
     tr
       th Title
       th Description
-      / th Donable Type
-      / th
-      / th
+      th Donable Type
+      th
+      th
+      th
 
   tbody
     - @donations.each do |donation|
       tr
         td = donation.title
         td = donation.description
-        / td = donation.donable.donable_type
-        / td = link_to 'Show', user
-        / td = link_to 'Edit', edit_user_path(user)
-        / td = link_to 'Destroy', user, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = class_name_to_human_readable(donation.donable_type)
+        td = link_to 'Show', user_donation_path(@user, donation)
+        td = link_to 'Edit', edit_user_donation_path(@user, donation)
+        td = link_to 'Destroy', user_donation_path(@user, donation), data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
 
+= link_to 'Back', @user
+'|
 = link_to 'New Donation', new_user_donation_path(@user)

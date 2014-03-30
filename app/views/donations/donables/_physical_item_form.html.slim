@@ -1,0 +1,15 @@
+h1 Physical Item Form
+
+= fields_for @donable do |builder|
+  .fieldset
+    .field
+      = builder.label :height
+      = builder.number_field :height, step: 0.01
+
+    .field
+      = builder.label :weight
+      = builder.number_field :weight, step: 0.01
+
+    .field
+      = builder.label :width
+      = builder.number_field :width, step: 0.01

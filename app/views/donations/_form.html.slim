@@ -1,10 +1,5 @@
 = form_for [@user, @donation] do |f|
-  - if @donation.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@donation.errors.count, "error")} prohibited this donation from being saved:"
-      ul
-        - @donation.errors.full_messages.each do |message|
-          li = message
+  = render 'shared/form_errors', current_model: @donation
 
   .field
     = f.label :title
@@ -14,6 +9,8 @@
     = f.text_area :description
   .field
     = f.label :donable_type
-    = select("donation", "donable_type", donable_type_names)
+    = f.select :donable_type, donable_type_names
+
+  #donable-model
 
   .actions = f.submit 'Save'

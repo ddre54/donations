@@ -1,21 +1,21 @@
 require 'spec_helper'
 
-describe "donations/new" do
+describe "donations/edit" do
   before(:each) do
     @user = assign(:user, stub_model(User,
       :name => "Jhon Doe",
       :email => "user@example.com"
     ))
 
-    assign(:donation, stub_model(Donation,
+    @donation = assign(:donation, stub_model(Donation,
       :title => "One donation",
       :description => "donation description"
-    ).as_new_record)
+    ))
   end
 
-  it "renders new donation form" do
+  it "renders edit donation form" do
     render
-    assert_select "form[action=?][method=?]", user_donations_path(@user), "post" do
+    assert_select "form[action=?][method=?]", user_donation_path(@user, @donation), "post" do
       assert_select "input#donation_title[name=?]", "donation[title]"
       assert_select "textarea#donation_description[name=?]", "donation[description]"
     end
@@ -28,7 +28,7 @@ describe "donations/new" do
           :primary_contact_name => "Contact me",
           :latitude => 32.3232,
           :longitude => 45.4545
-        ).as_new_record)
+        ))
       end
 
       it "renders experience form" do
@@ -45,7 +45,7 @@ describe "donations/new" do
           :height => 61,
           :weight => 51,
           :width => 81
-        ).as_new_record)
+        ))
       end
 
       it "renders physical item form" do
@@ -60,7 +60,7 @@ describe "donations/new" do
       before(:each) do
         @donable = assign(:donable, stub_model(Voucher,
           :expiration_date => "2014-04-06"
-        ).as_new_record)
+        ))
       end
 
       it "renders voucher form" do

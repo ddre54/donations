@@ -48,6 +48,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'slim-rails'
 gem 'pg'
 gem 'virtus'
+gem 'gon'
+gem 'jquery-turbolinks'
 
 group :development, :test do
   gem 'rspec-rails'

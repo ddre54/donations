@@ -1,0 +1,6 @@
+- if current_model.errors.any?
+    .error_explanation
+      h2 = "#{pluralize(current_model.errors.count, "error")} prohibited this #{class_name_to_human_readable(current_model.class.name).downcase} from being saved:"
+      ul
+        - current_model.errors.full_messages.each do |message|
+          li = message

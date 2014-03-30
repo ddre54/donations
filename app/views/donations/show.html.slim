@@ -1,0 +1,15 @@
+h1 Donation
+
+p
+  strong Title:
+  = @donation.title
+p
+  strong Description:
+  = @donation.description
+
+.donable-information
+  = render donable_class_name_show(@donation.donable.class.name), donable: @donation.donable
+
+= link_to 'Edit', edit_user_donation_path(@user, @donation)
+'|
+= link_to 'Back', user_donations_path(@user)

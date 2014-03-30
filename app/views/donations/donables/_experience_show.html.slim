@@ -1,0 +1,15 @@
+h2 Experience Information
+
+p
+  strong Primary Contact Name:
+  = donable.primary_contact_name
+
+p
+  strong Latitude
+  = donable.latitude
+
+p
+  strong Longitude
+  = donable.longitude
+
+= image_tag "//maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{donable.latitude}%2C#{donable.longitude}"

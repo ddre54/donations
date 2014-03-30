@@ -1,0 +1,7 @@
+h1 Voucher Form
+
+= fields_for @donable do |builder|
+  .fielset
+    .field
+      = builder.label :expiration_date
+      = builder.date_field :expiration_date
