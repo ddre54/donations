@@ -9,9 +9,10 @@ ready = ->
 
     # make a GET call and replace the content with the
     # partial form view for donable
-    donable_model_type = $("select#donation_donable_type :selected").val()
-    donable_model_type = "Experience" unless donable_model_type
-    jQuery.get "/users/donations/donable_selected/#{donable_model_type}", (data) ->
+    donable_model_type = if @value then @value else "Experience"
+    user_id = if $("#donation_user_id").val() then "/#{$('#donation_user_id').val()}" else ""
+    donation_id = if $("#donation_id").val() then "/#{$('#donation_id').val()}" else ""
+    jQuery.get "/users#{user_id}/donations#{donation_id}/donable_selected/#{donable_model_type}", (data) ->
       $("#donable-model").html data
 
   # Initialize view with the current selection

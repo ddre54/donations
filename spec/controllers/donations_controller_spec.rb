@@ -275,4 +275,32 @@ describe DonationsController do
     end
   end
 
+  describe "GET donable_selected_edit" do
+    let(:valid_donable_selected_attributes) { {
+      user_id: user.id,
+      id: physical_donation.id,
+      donable_type: "PhysicalItem"
+    } }
+
+    it "assigns a user as @user when valid session" do
+      get :donable_selected_edit, valid_donable_selected_attributes, valid_session
+      assigns(:user).should eq(user)
+    end
+
+    it "assigns a new donable class as @donable" do
+      get :donable_selected_edit, valid_donable_selected_attributes, valid_session
+      assigns(:donable).should eq(physical_donation.donable)
+    end
+
+    it "renders partial form for that donable class" do
+      get :donable_selected_edit, valid_donable_selected_attributes, valid_session
+      response.should render_template("donations/donables/_physical_item_form")
+    end
+
+    it "assigns a nil as @user when no valid session" do
+      get :donable_selected_edit, valid_donable_selected_attributes, {}
+      assigns(:donable).should eq(nil)
+    end
+  end
+
 end

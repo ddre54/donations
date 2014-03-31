@@ -8,8 +8,13 @@
     = f.label :description
     = f.text_area :description
   .field
-    = f.label :donable_type
-    = f.select :donable_type, donable_type_names
+    - unless is_edit_form
+      = f.label :donable_type
+      = f.select :donable_type, donable_type_names
+    - else
+      = f.hidden_field :user_id, value: @user.id
+      = f.hidden_field :id, value: @donation.id
+      = f.hidden_field :donable_type, value: @donation.donable_type
 
   #donable-model
 

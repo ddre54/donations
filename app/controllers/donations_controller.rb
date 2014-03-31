@@ -1,7 +1,7 @@
 class DonationsController < ApplicationController
 
-  before_action :set_user, :except => [:donable_selected]
-  before_action :set_donation, only: [:show, :edit, :update, :destroy]
+  before_action :set_user
+  before_action :set_donation, only: [:show, :edit, :update, :destroy, :donable_selected_edit]
 
   include DonationsHelper
 
@@ -19,6 +19,8 @@ class DonationsController < ApplicationController
   def edit
   end
 
+  # TODO: Extract to form object
+  # TODO: Extract to object builder
   def create
     donable_type = params[:donation][:donable_type]
 
@@ -38,6 +40,8 @@ class DonationsController < ApplicationController
     end
   end
 
+  # TODO: Extract to form object
+  # TODO: Extract to object updater
   def update
     @donable = @donation.donable
     respond_to do |format|
@@ -64,20 +68,26 @@ class DonationsController < ApplicationController
     end
   end
 
+  # TODO: Extract to donable_selected_edit to donable controller
+  def donable_selected_edit
+    @donable = @donation.donable
+    render_donable_partial
+  end
+
+  # TODO: Extract to donable_selected to donable controller
   def donable_selected
-    @user = User.where(id: session[:user_id]).first
     @donable = donable_class_constant(params[:donable_type]).new
-    render :partial => donable_class_name_form(params[:donable_type]), :locals => { :user => @user, :donable => @donable }
+    render_donable_partial
   end
 
   private
 
   def set_user
-    @user = User.find(params[:user_id])
+    @user = User.where(id: params[:user_id]).first
   end
 
   def set_donation
-    @donation = Donation.find(params[:id])
+    @donation = Donation.where(id: params[:id], user_id: params[:user_id]).first
   end
 
   def create_donable_with_donation(donable_type, user)
@@ -111,5 +121,9 @@ class DonationsController < ApplicationController
   def donation_params
     safe_attributes = [:title, :description]
     params.require(:donation).permit(*safe_attributes)
+  end
+
+  def render_donable_partial
+    render :partial => donable_class_name_form(params[:donable_type]), :locals => { :user => @user, :donable => @donable }
   end
 end

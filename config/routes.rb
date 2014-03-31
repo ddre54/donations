@@ -21,6 +21,7 @@ Donations::Application.routes.draw do
     resources :donations
   end
 
+  match '/users/:user_id/donations/:id/donable_selected/:donable_type', to: 'donations#donable_selected_edit', via: 'get'
   match '/users/donations/donable_selected/:donable_type', to: 'donations#donable_selected', via: 'get'
 
   # do
