@@ -53,7 +53,6 @@ end
 gem 'slim-rails'
 gem 'pg'
 gem 'virtus'
-gem 'gon'
 gem 'jquery-turbolinks'
 
 group :development, :test do

@@ -1,6 +1,6 @@
 class DonationsController < ApplicationController
 
-  before_action :set_user
+  before_action :set_user, :except => [:donable_selected]
   before_action :set_donation, only: [:show, :edit, :update, :destroy]
 
   include DonationsHelper
@@ -65,6 +65,7 @@ class DonationsController < ApplicationController
   end
 
   def donable_selected
+    @user = User.where(id: session[:user_id]).first
     @donable = donable_class_constant(params[:donable_type]).new
     render :partial => donable_class_name_form(params[:donable_type]), :locals => { :user => @user, :donable => @donable }
   end
@@ -72,7 +73,6 @@ class DonationsController < ApplicationController
   private
 
   def set_user
-    gon.user_id = params[:user_id]
     @user = User.find(params[:user_id])
   end
 

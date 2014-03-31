@@ -11,7 +11,7 @@ ready = ->
     # partial form view for donable
     donable_model_type = $("select#donation_donable_type :selected").val()
     donable_model_type = "Experience" unless donable_model_type
-    jQuery.get "/users/#{gon.user_id}/donations/donable_selected/#{donable_model_type}", (data) ->
+    jQuery.get "/users/donations/donable_selected/#{donable_model_type}", (data) ->
       $("#donable-model").html data
 
   # Initialize view with the current selection
