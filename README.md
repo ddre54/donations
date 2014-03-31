@@ -1,28 +1,73 @@
-# README
+# Donations App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Small **Donations** applicaton with some polymorphic associations
 
-Things you may want to cover:
+# Software version dependencies
 
-* Ruby version
+**Ruby**
 
-* System dependencies
+```bash
+ruby 2.1.1p76
+```
 
-* Configuration
+**Rails**
 
-* Database creation
+```bash
+Rails 4.0.4
+```
 
-* Database initialization
+**Postgres**
 
-* How to run the test suite
+```bash
+psql (PostgreSQL) 9.3.4
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+# Start application (Development)
 
-* Deployment instructions
+Clone git repository
 
-* ...
+Install dependencies
+
+```
+bundle install
+```
+
+Migrate database
+
+```
+rake db:migrate
+```
+
+Run rails server
+
+```
+rails server -p 3001
+```
+
+# Running unicorn in production
+
+```bash
+bundle exec unicorn -E production -c config/unicorn.rb -p 3001 & disown
+```
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+# Running the tests
+
+In the application directory
+
+```bash
+rspec
+```
+
+# Deployment
+
+**TODO**
+- Set capistrano configuration for deployment
+  - Review error due to new version changes (using `Capistrano (3.1.0)`)
+- Set unicorn for configuration for deployment with capistrano
+- Set nginx configuration deployable through capistrano
+- Create unicorn, nginx erb templates
+
+# TODO
+
+- Set CSS to improve look and feel
