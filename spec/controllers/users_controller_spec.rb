@@ -38,10 +38,41 @@ describe UsersController do
   } }
 
   describe "GET index" do
-    it "assigns all users as @users" do
-      user = User.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:users).should eq([user])
+    describe "when admin user" do
+      it "assigns all users as @users" do
+        user = User.create! valid_attributes
+        User.any_instance.stub(:is_admin?).and_return { true }
+        get :index, {}, valid_session
+        assigns(:users).should eq([user])
+      end
+
+      it "returns ok status code" do
+        user = User.create! valid_attributes
+        User.any_instance.stub(:is_admin?).and_return { true }
+        get :index, {}, valid_session
+        expect(response.status).to eq(200)
+      end
+
+      it "renders template index" do
+        user = User.create! valid_attributes
+        User.any_instance.stub(:is_admin?).and_return { true }
+        get :index, {}, valid_session
+        response.should render_template("index")
+      end
+    end
+
+    describe "when not admin user" do
+      it "returns unauthorized status code" do
+        user = User.create! valid_attributes
+        get :index, {}, valid_session
+        expect(response.status).to eq(401)
+      end
+
+      it "shows unauthorized error page" do
+        user = User.create! valid_attributes
+        get :index, {}, valid_session
+        response.should render_template(:file => "#{Rails.root}/public/401.html")
+      end
     end
   end
 
